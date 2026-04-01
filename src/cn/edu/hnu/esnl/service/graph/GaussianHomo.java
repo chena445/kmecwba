@@ -1,0 +1,95 @@
+package cn.edu.hnu.esnl.service.graph;
+
+import java.util.Random;
+
+/**
+ * @author Guoqi Xie E-mail:xgqman@126.com
+ * @version JDAS 5.0 Create time��Jan 19, 2016 3:28:49 PM
+ */
+
+public class GaussianHomo {
+	public static Integer[][] generateCommunicationMatrixGaussian(Integer m,int cost) {
+		Integer taskNumber = (m * m + m - 2) / 2;
+
+		Integer[][] communicationMatrix = new Integer[taskNumber][taskNumber];
+
+		
+
+		int end = m - 1;
+		int k = 2;
+		int level = m - 1;
+
+		for (int i = 0; i < taskNumber; i++) { // Initiate the matrix with 0.0
+			for (int j = 0; j < taskNumber; j++) {
+
+				communicationMatrix[i][j] = 0;
+
+				if (i == 0 && (j > 0 && j < m))
+					communicationMatrix[i][j] = new Integer(cost);
+
+			}
+		}
+
+		for (int i = 0; i < taskNumber; i++) {
+
+			for (int j = i; j < taskNumber; j++) {
+				if (i == end + 1) {
+					for (int a = i + 1; a < i + 1 + m - k; a++) {
+						communicationMatrix[i][a] = new Integer(cost);
+					}
+					end = end + 1 + (m - k);
+					k++;
+					level--;
+					break;
+				}
+				if (i > 0 && j == (i + level))
+					communicationMatrix[i][j] = new Integer(cost);
+			}
+		}
+
+		//printCommunicationMatrix(communicationMatrix);
+
+		return communicationMatrix;
+
+	}
+
+	public static void printCommunicationMatrix(Integer[][] communicationMatrix) {
+
+		boolean flag = true;
+
+		int taskNumber = communicationMatrix.length;
+
+		System.out.println("communicationMatrix = {");
+
+		for (int i = 0; i < taskNumber; i++) {
+			boolean f = false;
+
+			System.out.print("{");
+
+			for (int j = 0; j < taskNumber; j++) {
+
+				if (j == taskNumber - 1) {
+					System.out.print(communicationMatrix[i][j]);
+				} else {
+					System.out.print(communicationMatrix[i][j] + ",");
+				}
+
+				f = f || !communicationMatrix[i][j].equals(0.0);
+
+			}
+			if (i == taskNumber - 1) {
+				System.out.print("}");
+			} else {
+				System.out.print("},");
+			}
+			System.out.println("");
+
+			if (i < taskNumber - 1)
+				flag = flag && f;
+		}
+		System.out.println("}");
+
+		System.out.println(flag);
+
+	}
+}

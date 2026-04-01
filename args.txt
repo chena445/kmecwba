@@ -1,0 +1,8 @@
+30
+250
+1.0
+16
+0.5
+1.0
+/Users/xgqman/workspace_exp/DAGExperiments/WebRoot/WEB-INF/classes/cn/edu/hnu/rtgg/util/communications.txt
+/Users/xgqman/workspace_exp/DAGExperiments/WebRoot/WEB-INF/classes/cn/edu/hnu/rtgg/util/computations.txt
